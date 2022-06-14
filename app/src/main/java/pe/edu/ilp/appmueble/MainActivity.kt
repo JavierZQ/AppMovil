@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     private val ip ="192.168.0.10:1400";
     private val db ="BDVentas";
     private val username ="sa";
-    private val password ="zamorano"
+    private val password =""
     fun dbConn(): Connection?{
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
