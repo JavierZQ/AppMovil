@@ -3,6 +3,11 @@ package pe.edu.ilp.appmueble
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
+import android.widget.Toast
+import java.sql.Connection
+import java.sql.DriverManager
+import java.sql.SQLException
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,12 +19,13 @@ class MainActivity : AppCompatActivity() {
         clik_ButonAdmin()
 
     }
-    //https://www.youtube.com/watch?v=uXvTSjgoU4A
+
     fun clik_ButonClien(){
     val cliente=findViewById<android.view.View>(R.id.btnCliente)
         cliente.setOnClickListener {
             val cli:Intent= Intent(applicationContext,Cliente::class.java)
             startActivity(cli)
+            dbConn()
         }
     }
     fun clik_ButonAdmin(){
@@ -30,5 +36,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    private val ip ="192.168.100.23:1433";
+    private val db ="BDVentas";
+    private val username ="sa";
+    private val password ="zamorano"
+    fun dbConn(): Connection?{
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+        var conn: Connection? = null
+        var connString:String
+        try {
+            Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance()
+            connString ="jdbc:jtds:sqlserver://$ip;databaseName=$db;user=$username;password=$password"
+            conn = DriverManager.getConnection(connString)
+            Toast.makeText(applicationContext,"Conectado!!", Toast.LENGTH_LONG).show()
+        }catch (ex: SQLException){
+            Toast.makeText(applicationContext,"error!!", Toast.LENGTH_LONG).show()
+        }
+        return conn
+    }
 }
