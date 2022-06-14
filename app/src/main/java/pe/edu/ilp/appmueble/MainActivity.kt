@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val ip ="192.168.100.23:1433";
+    private val ip ="192.168.0.10:1400";
     private val db ="BDVentas";
     private val username ="sa";
     private val password ="zamorano"
